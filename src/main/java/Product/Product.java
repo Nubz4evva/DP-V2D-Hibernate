@@ -20,8 +20,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(int productNummer, String naam, String beschrijving, double prijs) {
-        this.productNummer = productNummer;
+    public Product(String naam, String beschrijving, double prijs) {
         this.naam = naam;
         this.beschrijving = beschrijving;
         this.prijs = prijs;

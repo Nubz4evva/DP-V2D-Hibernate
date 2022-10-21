@@ -9,6 +9,7 @@
         <class>Product.Product</class>
         <class>Reizigers.Reiziger</class>
         <properties>
+            <property name="hibernate.id.new_generator_mappings" value="false"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/ovchip"/>
             <property name="hibernate.connection.username" value="postgres"/>

@@ -5,7 +5,9 @@ import Reizigers.Reiziger;
 
 import javax.persistence.*;
 import java.sql.Array;
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +26,18 @@ public class OVChipkaart {
     @JoinColumn(name = "reiziger_id")
     private Reiziger reiziger;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "ov_chipkaart_product",
+            joinColumns = { @JoinColumn(name = "kaart_nummer") },
+            inverseJoinColumns = { @JoinColumn( name = "product_nummer")}
+    )
     private List<Product> producten = new ArrayList<Product>();
 
     public OVChipkaart() {}
 
-    public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, Reiziger reiziger) {
-        this.kaartNummer = kaartNummer;
-        this.geldigTot = geldigTot;
+    public OVChipkaart(String geldigTot, int klasse, double saldo, Reiziger reiziger) throws ParseException {
+        Date geldigTotDate = new SimpleDateFormat("yyyy-MM-dd").parse(geldigTot);
+        this.geldigTot = geldigTotDate;
         this.klasse = klasse;
         this.saldo = saldo;
         this.reiziger = reiziger;

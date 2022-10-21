@@ -19,13 +19,12 @@ public class Reiziger {
     private Date geboortedatum;
     @OneToOne(mappedBy = "reiziger")
     private Adres adres;
-    @OneToMany
-    private List<OVChipkaart> OVChipkaarten;
+    @OneToMany(mappedBy = "reiziger")
+    private List<OVChipkaart> OVChipkaarten = new ArrayList<OVChipkaart>();
 
     public Reiziger() {}
 
-    public Reiziger(int reiziger_id, String vl, String tv, String an, Date gbdtm) {
-        this.reiziger_id = reiziger_id;
+    public Reiziger(String vl, String tv, String an, Date gbdtm) {
         this.voorletters = vl;
         this.tussenvoegsel = tv;
         this.achternaam = an;
@@ -79,15 +78,15 @@ public class Reiziger {
         return OVChipkaarten;
     }
 
-    public void setOVChipkaarten(ArrayList<OVChipkaart> OVChipkaarten) {
-        this.OVChipkaarten = OVChipkaarten;
+    public void addOVChipkaart(OVChipkaart ovChipkaart) {
+        this.OVChipkaarten.add(ovChipkaart);
     }
 
     public String getNaam() {
         String voorl = this.voorletters;
         String tussenv = this.tussenvoegsel;
         String achtern = this.achternaam;
-        String text = voorl + ".";
+        String text = voorl + ". ";
         if (tussenv != null) {
             text += tussenv + " ";
         }
@@ -96,8 +95,11 @@ public class Reiziger {
     }
 
     public String toString() {
-        String reizigerString = "Reiziger #" + this.reiziger_id + " " + getNaam() + ", geb." + this.geboortedatum;
-        String adresString = ", " + this.adres.getStraat() + " " + this.adres.getHuisnummer() + " (" + this.adres.getPostcode() + ")";
-        return reizigerString + adresString;
+        String reizigerString = "Reiziger #" + this.reiziger_id + " " + getNaam() + ", geb. " + this.geboortedatum;
+        if (this.adres != null) {
+            String adresString = ", " + this.adres.getStraat() + " " + this.adres.getHuisnummer() + " (" + this.adres.getPostcode() + ")";
+            reizigerString += adresString;
+        }
+        return reizigerString;
     }
 }

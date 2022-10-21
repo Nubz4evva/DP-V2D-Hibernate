@@ -4,6 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
+    <property name="hibernate.id.new_generator_mappings">false</property>
     <property name="connection.url">jdbc:postgresql://localhost:5432/ovchip</property>
     <property name="connection.driver_class">org.postgresql.Driver</property>
     <property name="connection.username">postgres</property>
